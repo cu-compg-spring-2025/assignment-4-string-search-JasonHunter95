@@ -29,5 +29,4 @@ python src/string_search.py \
     --rounds 1 \
     --out_file doc/naive_search.png
 ```
-<center><img src="/doc/naive_search.png" width="600"/></center>
-
+<center><img src="doc/naive_search.png" width="600"/></center>

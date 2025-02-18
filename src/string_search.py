@@ -5,6 +5,7 @@ import random
 import argparse
 import matplotlib.pyplot as plt
 import naive_search
+import boyer_moore
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -93,35 +94,56 @@ def main():
                              args.text_range[1],
                              args.text_range[2])
 
-    test_functions = [naive_search.naive_search]
-
+    test_functions = [naive_search.naive_search, boyer_moore.boyer_moore_search]
 
     run_times, mem_usages = test_harness(test_functions,
                                          text_size_range,
                                          args.pattern_size,
                                          args.rounds)
 
-    fig, axs = plt.subplots(2,1, figsize=(args.width, args.height))
-    fig.tight_layout(pad=3.0)
+    fig, axs = plt.subplots(2,1, figsize=(10, 12), sharex=False, sharey=False)
     ax = axs[0]
-    ax.plot(text_size_range, run_times[0], label='Naive')
-    ax.set_title(f'String Search Performance(|P|= {args.pattern_size})')
-    ax.set_xlabel('Text size')
-    ax.set_ylabel('Run time (ns)')
+    ax.plot(text_size_range, run_times[0], label='Naive', color='red')
+    ax.plot(text_size_range, run_times[1], label='Boyer-Moore', color='blue')
+    ax.set_title(f'String Search Performance(|P|= {args.pattern_size})', fontsize=16)
+    ax.set_xlabel('Text size', fontsize=14)
+    ax.set_ylabel('Run time (ns)', fontsize=14)
     ax.legend(loc='best', frameon=False, ncol=3)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
+    ax.grid(True, linestyle='--', alpha=0.6)
 
     ax = axs[1]
-    ax.plot(text_size_range, mem_usages[0], label='Naive')
-    ax.set_xlabel('Text size')
-    ax.set_ylabel('Memory (bytes)')
+    ax.plot(text_size_range, mem_usages[0], label='Naive', color='red')
+    ax.plot(text_size_range, mem_usages[1], label='Boyer-Moore', color='blue')
+    ax.set_xlabel('Text size', fontsize=14)
+    ax.set_ylabel('Memory (bytes)', fontsize=14)
     ax.legend(loc='best', frameon=False, ncol=3)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
+    ax.grid(True, linestyle='--', alpha=0.6)
 
+    
+    # ax = axs[2]
+    # ax.plot(text_size_range, run_times[1], label='Boyer-Moore')
+    # ax.set_xlabel('Text size', fontsize=14)
+    # ax.set_ylabel('Run time (ns)', fontsize=14)
+    # ax.legend(loc='best', frameon=False, ncol=3)
+    # ax.spines['top'].set_visible(False)
+    # ax.spines['right'].set_visible(False)
+    # ax.grid(True, linestyle='--', alpha=0.6)
+    
+    # ax = axs[3]
+    # ax.plot(text_size_range, mem_usages[1], label='Boyer-Moore')
+    # ax.set_xlabel('Text size', fontsize=14)
+    # ax.set_ylabel('Memory (bytes)', fontsize=14)
+    # ax.legend(loc='best', frameon=False, ncol=3)
+    # ax.spines['top'].set_visible(False)
+    # ax.spines['right'].set_visible(False)
+    # ax.grid(True, linestyle='--', alpha=0.6)
+    
+    plt.tight_layout()
 
-    plt.savefig(args.out_file)
-
+    plt.savefig(args.out_file, dpi=300)
 if __name__ == '__main__':
     main()
