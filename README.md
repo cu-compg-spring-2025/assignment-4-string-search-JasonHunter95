@@ -27,8 +27,8 @@ optional arguments:
 ## Examples
 ```
 python3 src/string_search.py \
-    --experiment_type RepeatingChars \      
-    --text_range 100 10000 100 \
+    --experiment_type RepeatingChars \
+    --text_range 100 10000 1000 \
     --pattern_size 100 \
     --rounds 10 \
     --out_file doc/worstcase_search.png
@@ -37,8 +37,8 @@ python3 src/string_search.py \
 
 ```
 python3 src/string_search.py \
-    --experiment_type Alphabet \      
-    --text_range 100 10000 100 \
+    --experiment_type Alphabet \
+    --text_range 100 10000 1000 \
     --pattern_size 100 \
     --rounds 10 \
     --out_file doc/alphabet_search.png
@@ -47,11 +47,10 @@ python3 src/string_search.py \
 
 ```
 python3 src/string_search.py \
-    --experiment_type Nucleotides \      
-    --text_range 100 10000 100 \
+    --experiment_type Nucleotides \
+    --text_range 100 10000 1000 \
     --pattern_size 100 \
     --rounds 10 \
     --out_file doc/nucleotide_search.png
 ```
 <center><img src="doc/nucleotide_search.png" width="600"/></center>
-
